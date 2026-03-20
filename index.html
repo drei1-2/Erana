@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title> Web Layout </title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+/* Header */
+header {
+    background-color: blue;
+    padding: 10px;
+    text-align: center;
+    color: white;
+}
+
+/* Top Navigation */
+ul.nav {
+    display: flex;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    background-color: green;
+}
+
+ul.nav li {
+    position: relative;
+}
+
+ul.nav li a {
+    display: block;
+    color: #e6fffa;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+ul.nav li a:hover {
+    background-color: #38a169;
+    color: blue;
+}
+
+/* Dropdown */
+ul.dropdown {
+    display: none;
+    position: absolute;
+    background-color: green;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    min-width: 180px;
+}
+
+ul.nav li:hover ul.dropdown {
+    display: block;
+}
+
+ul.dropdown li a {
+    padding: 12px 16px;
+}
+
+/* Container */
+.container {
+    display: flex;
+    width: 100%;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 30%;
+    background: #9ae6b4;
+    padding: 20px;
+}
+
+.sidebar ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.sidebar ul li a {
+    display: block;
+    padding: 10px;
+    text-decoration: none;
+    color: #064420;
+    background-color: #68d391;
+    margin-bottom: 5px;
+}
+
+.sidebar ul li a:hover {
+    background-color: #c6f6d5;
+}
+
+.sidebar ul li a.active {
+    background-color: #2f855a;
+    color: white;
+}
+
+/* Article */
+article {
+    padding: 20px;
+    width: 70%;
+    background-color: #f0fff4;
+    min-height: 300px;
+}
+
+.full-width {
+    width: 100% !important;
+}
+
+/* Application Card */
+.app-card {
+    background: #ffffff;
+    border-left: 6px solid #38a169;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    max-width: 800px;
+}
+
+.app-card h2 {
+    color: #276749;
+}
+
+.app-card p {
+    line-height: 1.6;
+}
+
+.app-buttons {
+    margin-top: 20px;
+}
+
+.app-buttons a {
+    display: inline-block;
+    padding: 12px 18px;
+    margin-right: 10px;
+    text-decoration: none;
+    color: white;
+    border-radius: 6px;
+    font-weight: bold;
+}
+
+.download-btn {
+    background-color: #2f855a;
+}
+
+.download-btn:hover {
+    background-color: #276749;
+}
+
+.web-btn {
+    background-color: #68d391;
+    color: #064420;
+}
+
+.web-btn:hover {
+    background-color: #48bb78;
+}
+
+/* Footer */
+footer {
+    background-color: #2f855a;
+    padding: 10px;
+    text-align: center;
+    color: blue;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h2> SDIHS </h2>
+    <h3 style="font-size: 18px;"> Santo Domingo Integrated High School </h3>
+</header>
+
+<!-- TOP NAVIGATION -->
+<ul class="nav">
+    <li>
+        <a href="#">Home</a>
+        <ul class="dropdown">
+            <li><a href="#" onclick="showHome()">Home</a></li>
+        </ul>
+    </li>
+
+    <li>
+        <a href="#">Grading</a>
+        <ul class="dropdown">
+            <li><a href="EARTHQUAKE ADVISORY.html" onclick="showGrading('first')">First Grading</a></li>
+            <li><a href="#" onclick="showGrading('second')">Second Grading</a></li>
+            <li><a href="#" onclick="showGrading('third')">Third Grading</a></li>
+        </ul>
+    </li>
+
+    <li>
+        <a href="#">About</a>
+        <ul class="dropdown">
+            <li><a href="#" onclick="showAbout()">About School</a></li>
+            <li><a href="#" onclick="showApplication()">Application</a></li>
+        </ul>
+    </li>
+</ul>
+
+<div class="container">
+
+<!-- SIDEBAR -->
+<nav class="sidebar" id="sidebar">
+    <ul>
+        <li><a href="School Profile.html" onclick="loadContent('home', this)">School Profile</a></li>
+        <li><a href="shs.hmtl" onclick="loadContent('shs', this)">SHS</a></li>
+        <li><a href="jhs.html" onclick="loadContent('jhs', this)">JHS</a></li>
+    </ul>
+</nav>
+
+<!-- MAIN CONTENT -->
+<article id="content">
+    <h1> Welcome </h1>
+    <p>
+        Santo Domingo Integrated High School was founded in 1971. <br>
+        It is located at Barangay Santo Domingo, City of Santa Rosa, Laguna.
+    </p>
+</article>
+
+</div>
+
+<footer>
+    <p> © 2025 SDIHS </p>
+</footer>
+
+<script>
+function showHome() {
+    sidebar.style.display = "block";
+    content.classList.remove("full-width");
+    loadContent("home");
+}
+
+function showGrading(type) {
+    sidebar.style.display = "none";
+    content.classList.add("full-width");
+
+    content.innerHTML = `<h2>${type.charAt(0).toUpperCase()+type.slice(1)} Grading</h2>
+    <p>Content for ${type} grading.</p>`;
+}
+
+function showAbout() {
+    sidebar.style.display = "none";
+    content.classList.add("full-width");
+
+    content.innerHTML = `
+    <h2>About SDIHS</h2>
+    <p>Santo Domingo Integrated High School is committed to quality education and innovation.</p>
+    `;
+}
+
+function showApplication() {
+    sidebar.style.display = "none";
+    content.classList.add("full-width");
+
+    content.innerHTML = `
+    <div class="app-card">
+        <h2>KizunaNet</h2>
+        <p>
+            <strong>KizunaNet</strong> is an application designed to strengthen communication and connection
+            within the school community. It provides an accessible pl
